@@ -1,0 +1,23 @@
+{
+  "name": "council-dashboard-api",
+  "version": "1.0.0",
+  "description": "API for common Council Dashboard",
+  "main": "app.js",
+  "scripts": {
+    "test": "null",
+    "start": "npm start app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RyanDsilva/council-dashboard-api"
+  },
+  "keywords": [
+    "api",
+    "nodejs",
+    "mongodb",
+    "passportjs",
+    "server"
+  ],
+  "author": "Ryan Dsilva, Niharika Gogate, Katoushka Gracious",
+  "license": "ISC"
+}
