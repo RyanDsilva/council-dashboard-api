@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var passportLocalMongoose = require('passport-local-mongoose');
 
 var CouncilSchema = new mongoose.Schema({
     name: String,
@@ -19,4 +20,5 @@ var CouncilSchema = new mongoose.Schema({
    ] 
 });
 
+CouncilSchema.plugin(passportLocalMongoose);
 module.exports = mongoose.model('Council', CouncilSchema);
