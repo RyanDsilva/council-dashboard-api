@@ -2,16 +2,8 @@ const express = require('express');
 const Router = express.Router();
 const Controller = require('../controllers/councilController');
 
-Router.get('/council/login', (req, res) => {
-  //Display Login Page
-});
-
 Router.post('/council/login', (req, res) => {
   Controller.login(req, res);
-});
-
-Router.get('/council/register', (req, res) => {
-  //Display Register Page
 });
 
 Router.post('/council/register', (req, res) => {
@@ -23,11 +15,11 @@ Router.get('/logout', (req, res) => {
 });
 
 Router.get('/council/:id/dashboard', (req, res) => {
-  //Display Dashboard
+  Controller.find(req, res);
 });
 
 Router.get('/council/:id/edit', (req, res) => {
-  //Display Edit Form
+  Controller.find(req, res);
 });
 
 Router.put('/council/:id/edit', (req, res) => {
@@ -35,7 +27,7 @@ Router.put('/council/:id/edit', (req, res) => {
 });
 
 Router.get('/council/:id/members/add', (req, res) => {
-  //Display Members add Form
+  Controller.find(req, res);
 });
 
 Router.post('/council/:id/members/add', (req, res) => {
@@ -47,7 +39,7 @@ Router.delete('/council/:cid/members/:mid', (req, res) => {
 });
 
 Router.get('/council/:id/delete', (req, res) => {
-  //Delete Council Confirmation
+  Controller.find(req, res);
 });
 
 Router.delete('/council/:id/delete', (req, res) => {
