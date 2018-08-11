@@ -7,7 +7,7 @@ Router.get('/council/login', (req, res) => {
 });
 
 Router.post('/council/login', (req, res) => {
-  Controller.login(req,res);
+  Controller.login(req, res);
 });
 
 Router.get('/council/register', (req, res) => {
@@ -15,11 +15,11 @@ Router.get('/council/register', (req, res) => {
 });
 
 Router.post('/council/register', (req, res) => {
-  Controller.register(req,res);
+  Controller.register(req, res);
 });
 
-Router.get('/logout', (req,res) => {
-  Controller.logout(req,res);
+Router.get('/logout', (req, res) => {
+  Controller.logout(req, res);
 });
 
 Router.get('/council/:id/dashboard', (req, res) => {
@@ -31,7 +31,7 @@ Router.get('/council/:id/edit', (req, res) => {
 });
 
 Router.put('/council/:id/edit', (req, res) => {
-  //Submit Edit Form
+  Controller.edit(req, res);
 });
 
 Router.get('/council/:id/members/add', (req, res) => {
@@ -39,11 +39,11 @@ Router.get('/council/:id/members/add', (req, res) => {
 });
 
 Router.post('/council/:id/members/add', (req, res) => {
-  //Submit Members add Form
+  Controller.addMember(req, res);
 });
 
 Router.delete('/council/:cid/members/:mid', (req, res) => {
-  //Delete Members
+  Controller.removeMember(req, res);
 });
 
 Router.get('/council/:id/delete', (req, res) => {
@@ -51,7 +51,7 @@ Router.get('/council/:id/delete', (req, res) => {
 });
 
 Router.delete('/council/:id/delete', (req, res) => {
-  //Delete Council
+  Controller.delete(req, res);
 });
 
 module.exports = Router;

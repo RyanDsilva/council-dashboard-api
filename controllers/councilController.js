@@ -33,4 +33,72 @@ CouncilController.logout = (req, res) => {
   res.redirect('/');
 };
 
+CouncilController.find = (req, res) => {
+  Council.findById(req.params.id)
+    .populate('users')
+    .exec((err, council) => {
+      if (err) {
+        //TODO: Handle Errors
+      } else {
+        res.send(council);
+      }
+    });
+};
+
+CouncilController.edit = (req, res) => {
+  Council.findByIdAndUpdate(req.params.id, req.body.council, (err, council) => {
+    if (err) {
+      //TODO: Handle Errors
+    } else {
+      res.send(council);
+      res.redirect('/council/' + council._id + '/dashboard');
+    }
+  });
+};
+
+CouncilController.delete = (req, res) => {
+  Council.findByIdAndRemove(req.params.id, err => {
+    if (err) {
+      //TODO: Handle Errors
+    } else {
+      res.redirect('/');
+    }
+  });
+};
+
+CouncilController.addMember = (req, res) => {
+  Council.findById(req.params.id, (err, council) => {
+    if (err) {
+      //TODO: Handle Errors
+    } else {
+      User.find({ rollno: req.body.rollno }, (err, user) => {
+        if (err) {
+          //TODO: Handle Errors
+        } else {
+          council.members.push(user);
+          council.save();
+          res.redirect('/council/' + council._id + '/dashboard');
+        }
+      });
+    }
+  });
+};
+
+CouncilController.removeMember = (req, res) => {
+  Council.findByIdAndUpdate(req.params.cid, (err, council) => {
+    if (err) {
+      //TODO: Handle Errors
+    } else {
+      User.findById(req.params.mid, (err, user) => {
+        if (err) {
+          //TODO: Handle Errors
+        } else {
+          council.members.id(user._id).remove();
+          res.redirect('/council/' + council._id + '/dashboard');
+        }
+      });
+    }
+  });
+};
+
 module.exports = CouncilController;

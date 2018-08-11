@@ -4,6 +4,7 @@ const sanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cors = require('cors');
 const LocalStrategy = require('passport-local');
 
 //Import Routes
@@ -28,6 +29,7 @@ app.use(require("express-session")({
   resave: false,
   saveUninitialized: false
 }));
+app.use(cors);
 
 //Variables
 const port = process.env.PORT || 3000;
@@ -50,7 +52,7 @@ passport.deserializeUser(Council.deserializeUser());
 //Routes
 //app.use(IndexRoutes);
 //app.use(UserRoutes);
-//app.use(CouncilRoutes);
+app.use(CouncilRoutes);
 //app.use(EventRoutes);
 
 app.listen(port, address, () => {
