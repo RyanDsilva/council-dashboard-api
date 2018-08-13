@@ -6,9 +6,9 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
+const flash = require('connect-flash');
 
 //Import Routes
-const IndexRoutes = require('./routes/index');
 const UserRoutes = require('./routes/user');
 const CouncilRoutes = require('./routes/council');
 const EventRoutes = require('./routes/event');
@@ -21,20 +21,23 @@ const app = express();
 
 //Middleware Setup
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(sanitizer());
 app.use(methodOverride('_method'));
-app.use(require("express-session")({
-  secret: "Common Council Dashboard",
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(cors);
+app.use(
+  require('express-session')({
+    secret: 'Common Council Dashboard',
+    resave: false,
+    saveUninitialized: false
+  })
+);
+app.use(cors());
+app.use(flash());
 
 //Variables
 const port = process.env.PORT || 3000;
-const db = process.env.DB || 'mongodb://localhost/councildashboard';
-const address = process.env.IP || '127.0.0.1'
+const db = process.env.DATABASEURL || 'mongodb://localhost/councildashboard';
+const address = process.env.IP || '127.0.0.1';
 
 //Database
 mongoose.connect(db);
@@ -50,7 +53,6 @@ passport.serializeUser(Council.serializeUser());
 passport.deserializeUser(Council.deserializeUser());
 
 //Routes
-//app.use(IndexRoutes);
 //app.use(UserRoutes);
 app.use(CouncilRoutes);
 //app.use(EventRoutes);

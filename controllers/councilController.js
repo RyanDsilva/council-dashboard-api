@@ -10,7 +10,7 @@ CouncilController.register = (req, res) => {
   council.isAdmin = false;
   Council.register(council, req.body.password, (err, council) => {
     if (err) {
-      //Handle the error
+      //TODO: Handle the Error
     } else {
       passport.authenticate('local')(req, res, () => {
         //TODO: Add Flash Message for Success
