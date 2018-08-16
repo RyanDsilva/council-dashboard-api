@@ -5,31 +5,26 @@ const User = require('../models/user');
 var CouncilController = {};
 
 CouncilController.register = (req, res) => {
-  var council = new Council({ name: req.body.name });
+  var council = new Council({ username: req.body.username });
   council.description = req.body.description;
   council.isAdmin = false;
+  console.log(council);
   Council.register(council, req.body.password, (err, council) => {
     if (err) {
       //TODO: Handle the Error
+      console.log(err.message);
     } else {
       passport.authenticate('local')(req, res, () => {
         //TODO: Add Flash Message for Success
-        res.redirect('/council/' + council._id + '/dashboard');
+        res.send(council);
       });
     }
   });
 };
 
-CouncilController.login = (req, res) => {
-  passport.authenticate('local', {
-    successRedirect: '/council/' + council._id + '/dashboard',
-    failureRedirect: '/council/login'
-    //TODO: Add Failure Flash
-  });
-};
-
 CouncilController.logout = (req, res) => {
   req.logout();
+  res.send('Logged Out');
   res.redirect('/');
 };
 
@@ -48,10 +43,10 @@ CouncilController.find = (req, res) => {
 CouncilController.edit = (req, res) => {
   Council.findByIdAndUpdate(req.params.id, req.body.council, (err, council) => {
     if (err) {
+      console.log(err);
       //TODO: Handle Errors
     } else {
       res.send(council);
-      res.redirect('/council/' + council._id + '/dashboard');
     }
   });
 };
@@ -61,7 +56,7 @@ CouncilController.delete = (req, res) => {
     if (err) {
       //TODO: Handle Errors
     } else {
-      res.redirect('/');
+      res.send('Deleted');
     }
   });
 };
@@ -77,7 +72,7 @@ CouncilController.addMember = (req, res) => {
         } else {
           council.members.push(user);
           council.save();
-          res.redirect('/council/' + council._id + '/dashboard');
+          res.send(council);
         }
       });
     }

@@ -1,16 +1,25 @@
 const express = require('express');
 const Router = express.Router();
+const passport = require('passport');
 const Controller = require('../controllers/councilController');
 
-Router.post('/council/login', (req, res) => {
-  Controller.login(req, res);
-});
+Router.post(
+  '/council/login',
+  passport.authenticate('local', {
+    failureRedirect: '/council/login',
+    failureFlash: true
+  }),
+  (req, res) => {
+    res.send(req.user);
+    res.redirect('/council/' + req.user._id + '/dashboard');
+  }
+);
 
 Router.post('/council/register', (req, res) => {
   Controller.register(req, res);
 });
 
-Router.get('/logout', (req, res) => {
+Router.get('council/logout', (req, res) => {
   Controller.logout(req, res);
 });
 
