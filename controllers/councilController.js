@@ -2,10 +2,10 @@ const passport = require('passport');
 const Council = require('../models/council');
 const User = require('../models/user');
 
-var CouncilController = {};
+let CouncilController = {};
 
 CouncilController.register = (req, res) => {
-  var council = new Council({ username: req.body.username });
+  let council = new Council({ username: req.body.username });
   council.description = req.body.description;
   council.isAdmin = false;
   console.log(council);
@@ -89,7 +89,7 @@ CouncilController.removeMember = (req, res) => {
           //TODO: Handle Errors
         } else {
           council.members.id(user._id).remove();
-          res.redirect('/council/' + council._id + '/dashboard');
+          res.send(council);
         }
       });
     }
