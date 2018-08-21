@@ -5,7 +5,7 @@ const User = require('../models/user');
 let CouncilController = {};
 
 CouncilController.register = (req, res) => {
-  let council = new Council({ username: req.body.username });
+  var council = new Council({ username: req.body.username });
   council.description = req.body.description;
   council.isAdmin = false;
   console.log(council);

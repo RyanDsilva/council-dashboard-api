@@ -45,15 +45,15 @@ mongoose.connect(db);
 //Auth
 app.use(passport.initialize());
 app.use(passport.session());
-//passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 passport.use(new LocalStrategy(Council.authenticate()));
-//passport.serializeUser(User.serializeUser());
+passport.serializeUser(User.serializeUser());
 passport.serializeUser(Council.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser());
 passport.deserializeUser(Council.deserializeUser());
 
 //Routes
-//app.use(UserRoutes);
+app.use(UserRoutes);
 app.use(CouncilRoutes);
 //app.use(EventRoutes);
 
