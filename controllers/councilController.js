@@ -30,7 +30,7 @@ CouncilController.logout = (req, res) => {
 
 CouncilController.find = (req, res) => {
   Council.findById(req.params.id)
-    .populate('users')
+    .populate('members')
     .exec((err, council) => {
       if (err) {
         //TODO: Handle Errors
