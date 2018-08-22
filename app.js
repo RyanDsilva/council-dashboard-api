@@ -23,6 +23,7 @@ const Council = require('./models/council');
 const app = express();
 
 //Middleware Setup
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(sanitizer());
@@ -116,6 +117,10 @@ app.use(function(req, res, next) {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
+});
+
+app.get('/', (req, res) => {
+  res.render('index');
 });
 
 app.listen(port, address, () => {
