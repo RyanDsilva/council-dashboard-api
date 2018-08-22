@@ -3,21 +3,18 @@ const Router = express.Router();
 const passport = require('passport');
 const Controller = require('../controllers/userController');
 
-Router.post(
-  '/user/login',
-  passport.authenticate('local', {
-    failureRedirect: '/user/login',
-    failureFlash: true
-  }),
-  (req, res) => {
-    res.send(req.user);
-    res.redirect('/event/all');
-  }
+Router.get(
+  '/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-Router.post('/user/register', (req, res) => {
-  Controller.register(req, res);
-});
+Router.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    successRedirect: '/events/all',
+    failureRedirect: '/auth/google'
+  })
+);
 
 Router.get('/user/edit/:userid', (req, res) => {
   Controller.find(req, res);

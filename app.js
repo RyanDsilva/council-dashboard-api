@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const flash = require('connect-flash');
 
 //Import Routes
@@ -45,12 +46,59 @@ mongoose.connect(db);
 //Auth
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+
 passport.use(new LocalStrategy(Council.authenticate()));
-passport.serializeUser(User.serializeUser());
 passport.serializeUser(Council.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 passport.deserializeUser(Council.deserializeUser());
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
+});
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID:
+        process.env.GOOGLE_CLIENT_ID ||
+        '846047337135-leg0s7jqn8fk4djkvaorg3d4kr1lsjmt.apps.googleusercontent.com',
+      clientSecret:
+        process.env.GOOGLE_CLIENT_SECRET || 'w3GaOIc7VXMLbLtNSNjlrIN-',
+      callbackURL: 'http://localhost:3000/auth/google/callback',
+      passReqToCallback: true
+    },
+    function(req, accessToken, refreshToken, profile, done) {
+      process.nextTick(function() {
+        User.findOne({ googleId: profile.id }, function(err, user) {
+          if (err) {
+            return done(err);
+          }
+          if (user) {
+            return done(null, user);
+          } else {
+            let newUser = new User();
+            newUser.googleId = profile.id;
+            newUser.googleToken = accessToken;
+            newUser.name = profile.displayName;
+            newUser.email = profile.emails[0].value;
+            newUser.display = profile.photos[0].value;
+
+            newUser.save(function(err) {
+              if (err) {
+                throw err;
+              }
+              return done(null, newUser);
+            });
+          }
+        });
+      });
+    }
+  )
+);
 
 //Routes
 app.use(UserRoutes);

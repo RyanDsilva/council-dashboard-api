@@ -1,29 +1,6 @@
-const passport = require('passport');
 const User = require('../models/user');
 
 let UserController = {};
-
-UserController.register = (req, res) => {
-  var newUser = new User({ username: req.body.username });
-  newUser.name = req.body.name;
-  newUser.email = req.body.email;
-  newUser.phone = req.body.phone;
-  newUser.year = req.body.year;
-  newUser.branch = req.body.branch;
-  //console.log(newUser);
-  User.register(newUser, req.body.password, (err, user) => {
-    if (err) {
-      //TODO: Handle the Error
-      console.log(err.message);
-    } else {
-      passport.authenticate('local')(req, res, () => {
-        //TODO: Add Flash Message for Success
-        console.log(req.user);
-        res.send(req.user);
-      });
-    }
-  });
-};
 
 UserController.logout = (req, res) => {
   req.logout();
