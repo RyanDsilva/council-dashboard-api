@@ -109,7 +109,7 @@ passport.use(
 //Routes
 app.use(UserRoutes);
 app.use(CouncilRoutes);
-//app.use(EventRoutes);
+app.use(EventRoutes);
 
 app.use(function(req, res, next) {
   res.locals.currentUser = req.user;

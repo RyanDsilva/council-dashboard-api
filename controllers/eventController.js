@@ -1,27 +1,28 @@
 const Event = require('../models/event');
 const User = require('../models/user');
 
-let eventController = {};
+let EventController = {};
 
-eventController.create = (req, res) => {
-  var event = new Event({ name: req.body.name });
-  event.description = req.body.description;
-  event.date = req.body.date;
-  event.image = req.body.image;
-  event.type = req.body.type;
-  event.duration = req.body.duration;
-  event.heldBy = req.user.id;
-  event.registrations = [];
-  event.save(function(err) {
+EventController.create = (req, res) => {
+  Event.create({ name: req.body.name }, (err, event) => {
     if (err) {
       console.log(err);
     } else {
+      event.description = req.body.description;
+      event.date = req.body.date;
+      event.image = req.body.image;
+      event.type = req.body.type;
+      event.duration = req.body.duration;
+      event.heldBy = req.user._id;
+      event.registrations = [];
+      event.save();
+      //res.send(event);
       res.redirect('/event/all');
     }
   });
 };
 
-eventController.search = (req, res) => {
+EventController.search = (req, res) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) {
       console.log(err);
@@ -31,7 +32,7 @@ eventController.search = (req, res) => {
   });
 };
 
-eventController.fetchAll = (req, res) => {
+EventController.fetchAll = (req, res) => {
   Event.find((err, events) => {
     if (err) {
       console.log(err);
@@ -41,7 +42,7 @@ eventController.fetchAll = (req, res) => {
   });
 };
 
-eventController.edit = (req, res) => {
+EventController.edit = (req, res) => {
   Event.findByIdAndUpdate(
     req.params.id,
     req.body.event,
@@ -56,7 +57,7 @@ eventController.edit = (req, res) => {
   );
 };
 
-eventController.register = (req, res) => {
+EventController.register = (req, res) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) {
       console.log(err);
@@ -74,7 +75,7 @@ eventController.register = (req, res) => {
   });
 };
 
-eventController.delete = (req, res) => {
+EventController.delete = (req, res) => {
   Event.findByIdAndRemove(req.params.id, err => {
     if (err) {
       console.log(err);
@@ -84,4 +85,4 @@ eventController.delete = (req, res) => {
   });
 };
 
-module.exports = eventController;
+module.exports = EventController;

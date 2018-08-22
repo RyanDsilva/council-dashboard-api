@@ -26,7 +26,7 @@ Router.put('/event/:id/edit', (req, res) => {
   Controller.edit(req, res);
 });
 
-Router.post('/event/:id/delete', (req, res) => {
+Router.delete('/event/:id/delete', (req, res) => {
   Controller.delete(req, res);
 });
 
