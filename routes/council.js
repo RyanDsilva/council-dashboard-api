@@ -39,11 +39,11 @@ Router.get('/council/:id/members/add', (req, res) => {
   Controller.find(req, res);
 });
 
-Router.post('/council/:id/members/add', (req, res) => {
+Router.put('/council/:id/members/add', (req, res) => {
   Controller.addMember(req, res);
 });
 
-Router.delete('/council/:cid/members/:mid', (req, res) => {
+Router.put('/council/:cid/members/:mid/remove', (req, res) => {
   Controller.removeMember(req, res);
 });
 
