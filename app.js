@@ -84,7 +84,6 @@ passport.use(
             return done(null, user);
           } else {
             let newUser = new User({ googleId: profile.id });
-            //newUser.googleId = profile.id;
             newUser.googleToken = accessToken;
             newUser.name = profile.displayName;
             newUser.email = profile.emails[0].value;
@@ -92,7 +91,8 @@ passport.use(
             newUser.phone = '9876543210';
             newUser.year = 'TE';
             newUser.branch = 'IT';
-
+            newUser.rollNo = '9999';
+            //Saving to DB
             newUser.save(function(err) {
               if (err) {
                 console.log(err);
