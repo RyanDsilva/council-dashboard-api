@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sanitizer = require('express-sanitizer');
-const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
@@ -26,8 +24,6 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(sanitizer());
-app.use(methodOverride('_method'));
 app.use(cookieParser());
 app.use(cors());
 app.use(flash());
