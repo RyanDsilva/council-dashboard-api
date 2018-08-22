@@ -41,14 +41,19 @@ CouncilController.find = (req, res) => {
 };
 
 CouncilController.edit = (req, res) => {
-  Council.findByIdAndUpdate(req.params.id, req.body.council, (err, council) => {
-    if (err) {
-      console.log(err);
-      //TODO: Handle Errors
-    } else {
-      res.send(council);
+  Council.findByIdAndUpdate(
+    req.params.id,
+    req.body.council,
+    { new: true },
+    (err, council) => {
+      if (err) {
+        console.log(err);
+        //TODO: Handle Errors
+      } else {
+        res.send(council);
+      }
     }
-  });
+  );
 };
 
 CouncilController.delete = (req, res) => {
