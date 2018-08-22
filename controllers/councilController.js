@@ -66,7 +66,7 @@ CouncilController.addMember = (req, res) => {
     if (err) {
       //TODO: Handle Errors
     } else {
-      User.find({ rollno: req.body.rollno }, (err, user) => {
+      User.find({ rollNo: req.body.rollNo }, (err, user) => {
         if (err) {
           //TODO: Handle Errors
         } else {
@@ -80,7 +80,7 @@ CouncilController.addMember = (req, res) => {
 };
 
 CouncilController.removeMember = (req, res) => {
-  Council.findByIdAndUpdate(req.params.cid, (err, council) => {
+  Council.findById(req.params.cid, (err, council) => {
     if (err) {
       //TODO: Handle Errors
     } else {
@@ -89,6 +89,7 @@ CouncilController.removeMember = (req, res) => {
           //TODO: Handle Errors
         } else {
           council.members.id(user._id).remove();
+          council.save();
           res.send(council);
         }
       });
