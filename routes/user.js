@@ -13,18 +13,22 @@ Router.get(
   passport.authenticate('google', {
     successRedirect: '/events/all',
     failureRedirect: '/auth/google'
-  })
+  }),
+  (req, res) => {
+    console.log(req.user);
+    res.send(req.user);
+  }
 );
 
-Router.get('/user/edit/:userid', (req, res) => {
+Router.get('/user/:id/edit', (req, res) => {
   Controller.find(req, res);
 });
 
-Router.put('/user/edit/:userid', (req, res) => {
+Router.put('/user/:id/edit', (req, res) => {
   Controller.edit(req, res);
 });
 
-Router.delete('/user/delete/:userid', (req, res) => {
+Router.delete('/user/:id/delete', (req, res) => {
   Controller.delete(req, res);
 });
 

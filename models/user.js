@@ -8,13 +8,7 @@ var UserSchema = new mongoose.Schema({
   googleId: String,
   googleToken: String,
   year: String,
-  branch: String,
-  belongsto: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Council'
-    }
-  }
+  branch: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

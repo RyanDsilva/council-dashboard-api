@@ -4,6 +4,8 @@ const sanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -25,13 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(sanitizer());
 app.use(methodOverride('_method'));
-app.use(
-  require('express-session')({
-    secret: 'Common Council Dashboard',
-    resave: false,
-    saveUninitialized: false
-  })
-);
+app.use(cookieParser());
 app.use(cors());
 app.use(flash());
 
@@ -42,6 +38,13 @@ const address = process.env.IP || '127.0.0.1';
 
 //Database
 mongoose.connect(db);
+
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY || 'councildashboardprojectcrce']
+  })
+);
 
 //Auth
 app.use(passport.initialize());
@@ -80,16 +83,19 @@ passport.use(
           if (user) {
             return done(null, user);
           } else {
-            let newUser = new User();
-            newUser.googleId = profile.id;
+            let newUser = new User({ googleId: profile.id });
+            //newUser.googleId = profile.id;
             newUser.googleToken = accessToken;
             newUser.name = profile.displayName;
             newUser.email = profile.emails[0].value;
             newUser.display = profile.photos[0].value;
+            newUser.phone = '9876543210';
+            newUser.year = 'TE';
+            newUser.branch = 'IT';
 
             newUser.save(function(err) {
               if (err) {
-                throw err;
+                console.log(err);
               }
               return done(null, newUser);
             });
@@ -104,6 +110,13 @@ passport.use(
 app.use(UserRoutes);
 app.use(CouncilRoutes);
 //app.use(EventRoutes);
+
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 app.listen(port, address, () => {
   console.log('Council Dashboard API listening on port ' + port);

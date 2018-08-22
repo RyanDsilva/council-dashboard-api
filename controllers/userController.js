@@ -13,20 +13,26 @@ UserController.find = (req, res) => {
     if (err) {
       //TODO: Handle Errors
     } else {
+      console.log(user);
       res.send(user);
     }
   });
 };
 
 UserController.edit = (req, res) => {
-  User.findByIdAndUpdate(req.params.id, req.body.user, (err, user) => {
-    if (err) {
-      console.log(err);
-      //TODO: Handle Errors
-    } else {
-      res.send(user);
+  User.findByIdAndUpdate(
+    req.params.id,
+    req.body.user,
+    { new: true },
+    (err, user) => {
+      if (err) {
+        console.log(err);
+        //TODO: Handle Errors
+      } else {
+        res.send(user);
+      }
     }
-  });
+  );
 };
 
 UserController.delete = (req, res) => {
