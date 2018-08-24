@@ -15,12 +15,15 @@ Router.get(
     failureRedirect: '/auth/google'
   }),
   (req, res) => {
-    console.log(req.user);
     res.send(req.user);
   }
 );
 
 Router.get('/user/:id/edit', (req, res) => {
+  Controller.find(req, res);
+});
+
+Router.get('/user/:id/dashboard', (req, res) => {
   Controller.find(req, res);
 });
 

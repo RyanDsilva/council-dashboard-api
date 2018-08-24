@@ -11,36 +11,37 @@ UserController.logout = (req, res) => {
 UserController.find = (req, res) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
-      //TODO: Handle Errors
+      console.log(err);
+      req.flash('error', 'An Error Occured! Please try again!');
+      res.redirect('/');
     } else {
-      console.log(user);
       res.send(user);
     }
   });
 };
 
 UserController.edit = (req, res) => {
-  User.findByIdAndUpdate(
-    req.params.id,
-    req.body.user,
-    { new: true },
-    (err, user) => {
-      if (err) {
-        console.log(err);
-        //TODO: Handle Errors
-      } else {
-        res.send(user);
-      }
+  User.findByIdAndUpdate(req.params.id, req.body.user, (err, user) => {
+    if (err) {
+      console.log(err);
+      req.flash('error', 'An Error Occured! Please try again!');
+      res.redirect('/user/' + user._id + '/dashboard');
+    } else {
+      req.flash('success', 'User Updated Successfully!');
+      res.redirect('/user/' + user._id + '/dashboard');
     }
-  );
+  });
 };
 
 UserController.delete = (req, res) => {
   User.findByIdAndRemove(req.params.id, err => {
     if (err) {
-      //TODO: Handle Errors
+      console.log(err);
+      req.flash('error', 'An Error Occured! Please try again!');
+      res.redirect('/user/' + user._id + '/dashboard');
     } else {
-      res.send('Deleted');
+      req.flash('success', 'User Deleted Successfully!');
+      res.redirect('/');
     }
   });
 };
