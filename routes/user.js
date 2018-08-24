@@ -2,6 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const passport = require('passport');
 const Controller = require('../controllers/userController');
+const middleware = require('../middleware/index');
 
 Router.get(
   '/auth/google',
@@ -19,19 +20,19 @@ Router.get(
   }
 );
 
-Router.get('/user/:id/edit', (req, res) => {
+Router.get('/user/:id/edit', middleware.isAuthenticated, (req, res) => {
   Controller.find(req, res);
 });
 
-Router.get('/user/:id/dashboard', (req, res) => {
+Router.get('/user/:id/dashboard', middleware.isAuthenticated, (req, res) => {
   Controller.find(req, res);
 });
 
-Router.put('/user/:id/edit', (req, res) => {
+Router.put('/user/:id/edit', middleware.isAuthenticated, (req, res) => {
   Controller.edit(req, res);
 });
 
-Router.delete('/user/:id/delete', (req, res) => {
+Router.delete('/user/:id/delete', middleware.isAdmin, (req, res) => {
   Controller.delete(req, res);
 });
 

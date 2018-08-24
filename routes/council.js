@@ -2,6 +2,7 @@ const express = require('express');
 const Router = express.Router();
 const passport = require('passport');
 const Controller = require('../controllers/councilController');
+const middleware = require('../middleware/index');
 
 Router.post(
   '/council/login',
@@ -23,35 +24,47 @@ Router.get('council/logout', (req, res) => {
   Controller.logout(req, res);
 });
 
-Router.get('/council/:id/dashboard', (req, res) => {
+Router.get('/council/:id/dashboard', middleware.isAuthenticated, (req, res) => {
   Controller.find(req, res);
 });
 
-Router.get('/council/:id/edit', (req, res) => {
+Router.get('/council/:id/edit', middleware.isAuthenticated, (req, res) => {
   Controller.find(req, res);
 });
 
-Router.put('/council/:id/edit', (req, res) => {
+Router.put('/council/:id/edit', middleware.isAuthenticated, (req, res) => {
   Controller.edit(req, res);
 });
 
-Router.get('/council/:id/members/add', (req, res) => {
+Router.get(
+  '/council/:id/members/add',
+  middleware.isAuthenticated,
+  (req, res) => {
+    Controller.find(req, res);
+  }
+);
+
+Router.put(
+  '/council/:id/members/add',
+  middleware.isAuthenticated,
+  (req, res) => {
+    Controller.addMember(req, res);
+  }
+);
+
+Router.put(
+  '/council/:cid/members/:mid/remove',
+  middleware.isAuthenticated,
+  (req, res) => {
+    Controller.removeMember(req, res);
+  }
+);
+
+Router.get('/council/:id/delete', middleware.isAdmin, (req, res) => {
   Controller.find(req, res);
 });
 
-Router.put('/council/:id/members/add', (req, res) => {
-  Controller.addMember(req, res);
-});
-
-Router.put('/council/:cid/members/:mid/remove', (req, res) => {
-  Controller.removeMember(req, res);
-});
-
-Router.get('/council/:id/delete', (req, res) => {
-  Controller.find(req, res);
-});
-
-Router.delete('/council/:id/delete', (req, res) => {
+Router.delete('/council/:id/delete', middleware.isAdmin, (req, res) => {
   Controller.delete(req, res);
 });
 
