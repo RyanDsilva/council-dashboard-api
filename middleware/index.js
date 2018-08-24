@@ -1,5 +1,4 @@
 const Event = require('../models/event');
-const Council = require('../models/council');
 
 let Authorization = {};
 
