@@ -4,7 +4,7 @@ let UserController = {};
 
 UserController.logout = (req, res) => {
   req.logout();
-  res.send('Logged Out');
+  req.flash('success', 'You have successfully logged out!');
   res.redirect('/');
 };
 

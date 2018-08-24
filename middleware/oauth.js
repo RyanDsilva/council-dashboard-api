@@ -21,7 +21,7 @@ const GoogleOauth = new GoogleStrategy(
         } else {
           User.create({ googleId: profile.id }, (err, newUser) => {
             if (err) {
-              res.send(err);
+              console.log(err);
             } else {
               newUser.googleToken = accessToken;
               newUser.name = profile.displayName;
