@@ -6,7 +6,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleOauth = require('./middleware/oauth');
 const flash = require('connect-flash');
 
 //Import Routes
@@ -60,48 +60,7 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID:
-        process.env.GOOGLE_CLIENT_ID ||
-        '846047337135-leg0s7jqn8fk4djkvaorg3d4kr1lsjmt.apps.googleusercontent.com',
-      clientSecret:
-        process.env.GOOGLE_CLIENT_SECRET || 'w3GaOIc7VXMLbLtNSNjlrIN-',
-      callbackURL: 'http://localhost:3000/auth/google/callback',
-      passReqToCallback: true
-    },
-    function(req, accessToken, refreshToken, profile, done) {
-      process.nextTick(function() {
-        User.findOne({ googleId: profile.id }, function(err, user) {
-          if (err) {
-            return done(err);
-          }
-          if (user) {
-            return done(null, user);
-          } else {
-            let newUser = new User({ googleId: profile.id });
-            newUser.googleToken = accessToken;
-            newUser.name = profile.displayName;
-            newUser.email = profile.emails[0].value;
-            newUser.display = profile.photos[0].value;
-            newUser.phone = '9876543210';
-            newUser.year = 'TE';
-            newUser.branch = 'IT';
-            newUser.rollNo = '9999';
-            //Saving to DB
-            newUser.save(function(err) {
-              if (err) {
-                console.log(err);
-              }
-              return done(null, newUser);
-            });
-          }
-        });
-      });
-    }
-  )
-);
+passport.use(GoogleOauth);
 
 //Routes
 app.use(UserRoutes);
