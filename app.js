@@ -8,6 +8,7 @@ const cors = require('cors');
 const LocalStrategy = require('passport-local');
 const GoogleOauth = require('./middleware/oauth');
 const flash = require('connect-flash');
+const keys = require('./keys');
 
 //Import Routes
 const UserRoutes = require('./routes/user');
@@ -39,7 +40,7 @@ mongoose.connect(db);
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_KEY || 'councildashboardprojectcrce']
+    keys: [process.env.COOKIE_KEY || keys.COOKIE_KEY]
   })
 );
 
