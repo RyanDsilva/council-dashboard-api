@@ -12,14 +12,13 @@ EventController.create = (req, res) => {
     } else {
       event.description = req.body.description;
       event.date = req.body.date;
-      event.image = req.body.image;
+      //event.image = req.body.image;
       event.type = req.body.type;
       event.duration = req.body.duration;
-      event.heldBy = req.user._id;
+      //event.heldBy = req.body.host;
       event.registrations = [];
       event.save();
-      req.flash('Event Created Successflly!');
-      res.redirect('/event/all');
+      res.send(event);
     }
   });
 };
