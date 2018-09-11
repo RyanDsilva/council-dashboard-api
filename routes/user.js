@@ -20,19 +20,19 @@ Router.get(
   }
 );
 
-Router.get('/user/:id/edit', middleware.isAuthenticated, (req, res) => {
+Router.get('/user/:id/edit', (req, res) => {
   Controller.find(req, res);
 });
 
-Router.get('/user/:id/dashboard', middleware.isAuthenticated, (req, res) => {
+Router.get('/user/:id/dashboard', (req, res) => {
   Controller.find(req, res);
 });
 
-Router.put('/user/:id/edit', middleware.isAuthenticated, (req, res) => {
+Router.put('/user/:id/edit', (req, res) => {
   Controller.edit(req, res);
 });
 
-Router.delete('/user/:id/delete', middleware.isAdmin, (req, res) => {
+Router.delete('/user/:id/delete', (req, res) => {
   Controller.delete(req, res);
 });
 

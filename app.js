@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
 const GoogleOauth = require('./middleware/oauth');
-const flash = require('connect-flash');
 const keys = require('./keys');
 
 //Import Routes
@@ -27,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-app.use(flash());
 
 //Variables
 const port = process.env.PORT || 3000;
@@ -67,13 +65,6 @@ passport.use(GoogleOauth);
 app.use(UserRoutes);
 app.use(CouncilRoutes);
 app.use(EventRoutes);
-
-app.use(function(req, res, next) {
-  res.locals.currentUser = req.user;
-  res.locals.success = req.flash('success');
-  res.locals.error = req.flash('error');
-  next();
-});
 
 app.get('/', (req, res) => {
   res.render('index');
