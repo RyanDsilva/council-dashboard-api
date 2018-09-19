@@ -12,7 +12,7 @@ Router.get(
 Router.get(
   '/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/events/all',
+    successRedirect: 'http://localhost:8080',
     failureRedirect: '/auth/google'
   }),
   (req, res) => {

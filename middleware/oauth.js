@@ -6,7 +6,7 @@ const GoogleOauth = new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID || keys.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || keys.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://council-dashboard.herokuapp.com/auth/google/callback'
+    callbackURL: 'http://localhost:3000/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function() {
