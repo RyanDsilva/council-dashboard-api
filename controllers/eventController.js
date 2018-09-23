@@ -4,15 +4,15 @@ const User = require('../models/user');
 let EventController = {};
 
 EventController.create = (req, res) => {
-  Event.create({ name: req.body.name }, (err, event) => {
+  Event.create({ name: req.body.event.name }, (err, event) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      event.description = req.body.description;
-      event.date = req.body.date;
-      event.type = req.body.type;
-      event.duration = req.body.duration;
-      event.heldBy = req.body.host;
+      event.description = req.body.event.description;
+      event.date = req.body.event.date;
+      event.type = req.body.event.type;
+      event.duration = req.body.event.duration;
+      // event.heldBy = req.body.event.host;
       event.save();
       res.status(200).json(event);
     }
@@ -34,7 +34,7 @@ EventController.fetchAll = (req, res) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      res.status(500).json(events);
+      res.status(200).json(events);
     }
   });
 };
