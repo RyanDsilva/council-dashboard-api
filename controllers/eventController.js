@@ -59,16 +59,10 @@ EventController.register = (req, res) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      User.create({ rollNo: req.body.rollNo }, (err, user) => {
+      User.findOne({ rollNo: req.body.rollNo }, (err, user) => {
         if (err) {
-          res.status(403).json(err);
+          res.status(404).json(err);
         } else {
-          user.name = req.body.name;
-          user.name = req.body.branch;
-          user.year = req.body.year;
-          user.email = req.body.email;
-          user.phone = req.body.phone;
-          user.save();
           event.registrations.push(user);
           event.save();
           res.status(200).json(event);
