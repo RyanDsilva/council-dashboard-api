@@ -6,16 +6,13 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
-const GoogleOauth = require('./middleware/oauth');
 const keys = require('./keys');
 
 //Import Routes
-const UserRoutes = require('./routes/user');
 const CouncilRoutes = require('./routes/council');
 const EventRoutes = require('./routes/event');
 
 //Import Schemas
-const User = require('./models/user');
 const Council = require('./models/council');
 
 const app = express();
@@ -50,19 +47,7 @@ passport.use(new LocalStrategy(Council.authenticate()));
 passport.serializeUser(Council.serializeUser());
 passport.deserializeUser(Council.deserializeUser());
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
-    done(null, user);
-  });
-});
-
-passport.use(GoogleOauth);
-
 //Routes
-app.use(UserRoutes);
 app.use(CouncilRoutes);
 app.use(EventRoutes);
 

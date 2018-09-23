@@ -1,15 +1,12 @@
 const mongoose = require('mongoose');
 
-var UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
+  rollNo: { type: Number, index: { unique: true } },
   name: String,
-  email: String,
-  phone: String,
-  rollNo: String,
-  display: String,
-  googleId: String,
-  googleToken: String,
+  branch: String,
   year: String,
-  branch: String
+  email: String,
+  phone: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

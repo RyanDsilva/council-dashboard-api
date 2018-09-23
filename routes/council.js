@@ -42,12 +42,8 @@ Router.put('/council/:id/members/add', (req, res) => {
   Controller.addMember(req, res);
 });
 
-Router.put('/council/:cid/members/:mid/remove', (req, res) => {
+Router.put('/council/:id/members/remove', (req, res) => {
   Controller.removeMember(req, res);
-});
-
-Router.get('/council/:id/delete', (req, res) => {
-  Controller.find(req, res);
 });
 
 Router.delete('/council/:id/delete', (req, res) => {
