@@ -7,6 +7,7 @@ let CouncilController = {};
 CouncilController.register = (req, res) => {
   let council = new Council({ username: req.body.username });
   council.description = req.body.description;
+  council.name = req.body.name;
   council.isAdmin = false;
   Council.register(council, req.body.password, (err, council) => {
     if (err) {

@@ -18,7 +18,7 @@ Router.post('/council/register', (req, res) => {
   Controller.register(req, res);
 });
 
-Router.get('council/logout', (req, res) => {
+Router.get('/council/logout', (req, res) => {
   Controller.logout(req, res);
 });
 

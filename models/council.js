@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var CouncilSchema = new mongoose.Schema({
   username: String,
+  name: String,
   description: String,
   password: String,
   isAdmin: Boolean,
