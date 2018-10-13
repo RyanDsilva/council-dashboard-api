@@ -11,6 +11,7 @@ const keys = require('./keys');
 //Import Routes
 const CouncilRoutes = require('./routes/council');
 const EventRoutes = require('./routes/event');
+const UserRoutes = require('./routes/user');
 
 //Import Schemas
 const Council = require('./models/council');
@@ -50,6 +51,7 @@ passport.deserializeUser(Council.deserializeUser());
 //Routes
 app.use(CouncilRoutes);
 app.use(EventRoutes);
+app.use(UserRoutes);
 
 app.get('/', (req, res) => {
   res.render('index');

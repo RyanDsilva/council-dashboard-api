@@ -8,7 +8,7 @@ UserController.addUser = (req, res) => {
       res.status(500).json(err);
     } else {
       user.name = req.body.name;
-      user.name = req.body.branch;
+      user.branch = req.body.branch;
       user.year = req.body.year;
       user.email = req.body.email;
       user.phone = req.body.phone;

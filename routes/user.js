@@ -13,3 +13,5 @@ Router.get('/user/:rollNo', (req, res) => {
 Router.delete('/user/:rollNo/delete', (req, res) => {
   Controller.deleteUser(req, res);
 });
+
+module.exports = Router;

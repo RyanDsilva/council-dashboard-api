@@ -8,10 +8,8 @@ var EventSchema = new mongoose.Schema({
   type: String,
   duration: String,
   heldBy: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Council'
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Council'
   },
   registrations: [
     {
