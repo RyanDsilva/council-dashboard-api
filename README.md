@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="#" rel="noopener">
- <img width=500px src="/home.jpeg" alt="Header Image"></a>
+ <img width=800px src="/home.JPG" alt="Header Image"></a>
 </p>
 
 ![Made With JavaScript](https://img.shields.io/badge/Made%20With-JavaScript-brightgreen.svg)
@@ -23,9 +23,9 @@
 - Exhaustive Calendar View
 
 <div align="center">
-  <img src="/calendar.jpeg" width="500px"/>
+  <img src="/calendar.JPG" width="800px"/>
   <hr>
-  <img src="/email.jpeg" width="500px"/>
+  <img src="/email.JPG" width="800px"/>
 </div>
 
 ---------------
@@ -33,9 +33,7 @@
 ## Installation & Setup
 ```sh
 $git clone https://github.com/RyanDsilva/council-dashboard-api.git
-
 (MongoDB Data Directory)$mongod
-
 (Project Root)$nodemon app.js
 ```
 
