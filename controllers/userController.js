@@ -28,6 +28,16 @@ UserController.findUser = (req, res) => {
   });
 };
 
+UserController.fetchAll = (req, res) => {
+  User.find((err, users) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json(users);
+    }
+  });
+};
+
 UserController.deleteUser = (req, res) => {
   User.findOneAndRemove({ rollNo: req.params.rollNo }, err => {
     if (err) {

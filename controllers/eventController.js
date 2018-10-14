@@ -1,5 +1,6 @@
 const Event = require('../models/event');
 const Council = require('../models/council');
+const User = require('../models/user');
 
 let EventController = {};
 
