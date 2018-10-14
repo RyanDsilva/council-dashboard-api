@@ -1,6 +1,7 @@
 const Event = require('../models/event');
 const Council = require('../models/council');
 const User = require('../models/user');
+const transporter = require('../middleware/mailer');
 
 let EventController = {};
 
@@ -77,6 +78,21 @@ EventController.register = (req, res) => {
         } else {
           event.registrations.push(user);
           event.save();
+          transporter.sendMail({
+            from: 'admin@kollab.com',
+            to: user.email,
+            subject: 'Event Registration Complete',
+            html:
+              '<b>Thank you for registering for ' +
+              event.name +
+              '!</b> <p></p> Here are the complete event details, <br> Name: ' +
+              event.name +
+              '<br> Description: ' +
+              event.description +
+              '<br> Time and Date: ' +
+              event.date +
+              '</p>'
+          });
           res.status(200).json(event);
         }
       });
