@@ -1,7 +1,7 @@
 const express = require('express');
 const Router = express.Router();
 const Controller = require('../controllers/eventController');
-const middleware = require('../middleware/index');
+const Auth = require('../middleware/index');
 
 Router.post('/event/create', (req, res) => {
   Controller.create(req, res);
