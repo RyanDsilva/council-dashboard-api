@@ -28,7 +28,7 @@ app.use(cors());
 //Variables
 const port = process.env.PORT || 3000;
 const db = process.env.DATABASEURL || 'mongodb://localhost/councildashboard';
-const address = process.env.IP || '127.0.0.1';
+const address = '0.0.0.0';
 
 //Database
 mongoose.connect(db);
