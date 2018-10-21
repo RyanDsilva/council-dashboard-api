@@ -28,7 +28,7 @@ app.use(cors());
 //Variables
 const port = process.env.PORT || 3000;
 const db = process.env.DATABASEURL || 'mongodb://localhost/councildashboard';
-//const address = process.env.IP || '127.0.0.1';
+const address = process.env.IP || '127.0.0.1';
 
 //Database
 mongoose.connect(db);
@@ -57,6 +57,6 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(port, () => {
+app.listen(port, address, () => {
   console.log('Council Dashboard API listening on port ' + port);
 });
