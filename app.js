@@ -6,7 +6,7 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
-const keys = require('./keys');
+//const keys = require('./keys');
 
 //Import Routes
 const CouncilRoutes = require('./routes/council');
