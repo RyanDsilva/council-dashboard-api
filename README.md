@@ -39,7 +39,7 @@ $git clone https://github.com/RyanDsilva/council-dashboard-api.git
 
 ---------------
 
-## Contributers
+## Contributors
 - [@RyanDsilva](https://github.com/RyanDsilva)
 - [@KatoushkaGracias](https://github.com/KatoushkaGracias)
 - [@Niharika1798](https://github.com/Niharika1798)
