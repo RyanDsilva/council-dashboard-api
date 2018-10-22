@@ -1,4 +1,4 @@
-# Kollab ![Build](https://img.shields.io/badge/build-passing-green.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg) 
+# Kollab ![Build](https://img.shields.io/badge/build-passing-brightgreen.svg) ![License](https://img.shields.io/badge/license-MIT-orange.svg) 
 
 <p align="center">
   <a href="#" rel="noopener">
